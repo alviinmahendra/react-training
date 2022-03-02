@@ -13,8 +13,6 @@ const MasterPage = () => {
   const { user, loggedIn, selectedSidebarIndex } = useSelector((state) => state.appStore);
   const dispatch = useDispatch();
 
-  console.log(user);
-
   const onSideBarChange = (index) => {
     dispatch(setSelectedSidebarIndex(index));
   };

@@ -9,6 +9,7 @@ const initateState = {
   user: { username: '', password: '' },
   loggedIn: false,
   selectedSidebarIndex: DASHBOARD,
+  restApiBaseUrl: 'https://jsonplaceholder.typicode.com',
 };
 
 const appStore = (state = initateState, action) => {
