@@ -4,11 +4,10 @@ const fetchPosts = () => async (dispatch, getState) => {
   const state = getState();
   const { appStore } = state;
   const { restApiBaseUrl } = appStore;
-  console.log(getState);
   let data = [];
 
   try {
-    const response = callRestApi('get', restApiBaseUrl, 'posts');
+    const response = await callRestApi('get', restApiBaseUrl, 'posts');
     data = response;
   } catch (err) {
     console.log(err);
@@ -17,6 +16,23 @@ const fetchPosts = () => async (dispatch, getState) => {
   return data;
 };
 
-const fetchComments = () => {};
+const fetchComments = (postId) => async (dispatch, getState) => {
+  const state = getState();
+  const { appStore } = state;
+  const { restApiBaseUrl } = appStore;
+  let data = [];
+
+  try {
+    const response = await callRestApi('get', restApiBaseUrl, `posts/${postId}/comments`);
+
+    data = response;
+  } catch (err) {
+    console.log(err);
+
+    return [];
+  }
+
+  return data;
+};
 
 export { fetchPosts, fetchComments };

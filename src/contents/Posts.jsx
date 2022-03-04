@@ -1,25 +1,33 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchPosts } from '../stores/business/postsBusiness';
+import { fetchPosts, fetchComments } from '../stores/business/postsBusiness';
 import Table from '../components/Table';
 import './Posts.scss';
 
 const Posts = () => {
   const dispatch = useDispatch();
   const [postsData, setPostsData] = useState([]);
-  const [commentsData] = useState([]);
-  const [selectedRowIndex] = useState(null);
+  const [commentsData, setCommentsData] = useState([]);
+  const [selectedRowIndex, setSelectedRowIndex] = useState(null);
 
   useEffect(() => {
     const init = async () => {
       const data = await dispatch(fetchPosts());
+
       setPostsData(data);
     };
+
     init();
   }, [dispatch]);
 
-  const onRowClick = () => {
-    console.log('onRowsClick');
+  const onRowClick = async (index) => {
+    setSelectedRowIndex(index);
+
+    const postId = postsData[index].id;
+
+    const data = await dispatch(fetchComments(postId));
+
+    setCommentsData(data);
   };
 
   return (
