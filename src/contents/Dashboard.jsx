@@ -1,19 +1,15 @@
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
-const Dashboard = ({ user }) => (
-  <div>
-    Hello,&nbsp;
-    <b>{user.name}</b>
-    !
-  </div>
-);
+const Dashboard = () => {
+  const user = useSelector((state) => state.appStore.user);
 
-Dashboard.propTypes = {
-  user: PropTypes.object,
-};
-
-Dashboard.defaultProps = {
-  user: { username: '', name: '' },
+  return (
+    <div>
+      Hello,&nbsp;
+      {/* eslint-disable-next-line */}
+      <b>{user.name}</b>!
+    </div>
+  );
 };
 
 export default Dashboard;

@@ -1,25 +1,28 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import sideBarItems from '../constants/sidebarItems';
-import * as sidebarIndexEnum from '../constants/sidebarIndexEnum';
 import { setUser, setLoggedIn, setSelectedSidebarIndex } from '../stores/actions/appAction';
 import Dashboard from './Dashboard';
 import Login from './Login';
-import './MasterPage.scss';
 import Posts from './Posts';
+import './MasterPage.scss';
 
 const MasterPage = () => {
   const { user, loggedIn, selectedSidebarIndex } = useSelector((state) => state.appStore);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSideBarChange = (index) => {
     dispatch(setSelectedSidebarIndex(index));
+    navigate(sideBarItems[index].route);
   };
 
   const onLogout = () => {
     dispatch(setUser({ username: '', password: '' }));
     dispatch(setLoggedIn(false));
+    // navigate('/');
   };
 
   return (
@@ -38,8 +41,10 @@ const MasterPage = () => {
               onLogout={onLogout}
             />
             <div className="main-content">
-              {selectedSidebarIndex === sidebarIndexEnum.DASHBOARD && <Dashboard user={user} />}
-              {selectedSidebarIndex === sidebarIndexEnum.POSTS && <Posts />}
+              <Routes>
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="posts" element={<Posts />} />
+              </Routes>
             </div>
           </div>
         </>

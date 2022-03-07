@@ -1,3 +1,6 @@
-const sideBarItems = [{ label: 'Dashboard' }, { label: 'Posts' }];
+const sideBarItems = [
+  { label: 'Dashboard', route: '/dashboard' },
+  { label: 'Posts', route: '/posts' },
+];
 
 export default sideBarItems;
