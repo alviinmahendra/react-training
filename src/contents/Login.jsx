@@ -6,6 +6,7 @@ import Button from '../components/Button';
 import availableUser from '../constants/availableUsers';
 import sideBarItems from '../constants/sidebarItems';
 import * as appAction from '../stores/actions/appAction';
+import { saveLoginToken } from '../libs/loginToken';
 import './Login.scss';
 
 const Login = () => {
@@ -22,6 +23,8 @@ const Login = () => {
     if (!user || password !== 'a') {
       return;
     }
+
+    saveLoginToken(username);
 
     dispatch(appAction.setLoggedIn(true));
     dispatch(appAction.setUser(user));
